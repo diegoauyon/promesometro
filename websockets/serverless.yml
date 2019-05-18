@@ -9,25 +9,14 @@
 # For full config options, check the docs:
 #    docs.serverless.com
 #
-# Happy Coding!
 
 service: promesometro-ws
-plugins:
-  - serverless-offline
-#  - serverless-websockets-plugin
-
-# You can pin your service to only deploy with a specific Serverless version
-# Check out our docs for more details
-# frameworkVersion: "=X.X.X"
 
 provider:
   name: aws
   runtime: nodejs8.10
-
   stage: dev
   region: us-east-2
-
-  # you can add statements to the Lambda function's IAM Role here
   iamRoleStatements:
     - Effect: "Allow"
       Action:
@@ -42,11 +31,12 @@ provider:
         - "execute-api:ManageConnections"
       Resource:
         - "arn:aws:execute-api:*:*:**/@connections/*"
-# you can define service wide environment variables here
+
+# Environment Data
 #  environment:
 #    variable1: value1
 
-# you can add packaging information here
+# Package Information
 #package:
 #  include:
 #    - include-me.js

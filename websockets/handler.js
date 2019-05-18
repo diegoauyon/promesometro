@@ -1,11 +1,11 @@
 'use strict';
 
-const AWS = require('aws-sdk');
-let dynamo = new AWS.DynamoDB.DocumentClient();
-
 require('aws-sdk/clients/apigatewaymanagementapi');
+const AWS = require('aws-sdk');
 
 const CHATCONNECTION_TABLE = 'chatIdTable';
+
+let dynamo = new AWS.DynamoDB.DocumentClient();
 
 const successfullResponse = {
     statusCode: 200,

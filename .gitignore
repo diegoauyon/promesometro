@@ -1,5 +1,7 @@
 # package directories
 node_modules
+websockets/node_modules
+frontend/node_modules
 jspm_packages
 
 # Serverless directories
