@@ -24,6 +24,10 @@ provider:
         - "dynamodb:GetItem"
         - "dynamodb:DeleteItem"
         - "dynamodb:Scan"
+        - "dynamodb:GetShardIterator"
+        - "dynamodb:DescribeStream"
+        - "dynamodb:ListStreams"
+        - "dynamodb:GetRecords"
       Resource:
         - Fn::GetAtt: [ChatTable, Arn]
     - Effect: "Allow"
@@ -63,6 +67,12 @@ functions:
     events:
       - websocket:
           route: sendMessage
+  updateTableHandler:
+    handler: handler.updateTableHandler
+    events:
+      - stream: arn:aws:dynamodb:us-east-2:163232894117:table/chatIdTable/stream/2019-05-18T07:00:31.647
+      - websocket:
+          route: broadcastConnections
 
 #    Define function environment variables here
 #    environment:
