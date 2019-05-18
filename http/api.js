@@ -157,11 +157,9 @@ const SETTINGS_JSON = {
     }
 };
 
-// ####################
-// LAMBDAS
-// ####################
+// Helpers
 
-module.exports.retrieve = async (event, context, callback) => {
+const getSettings = () => {
     const params = {
         TableName: SETTINGS_TABLE,
         ProjectionExpression: 'id,properties'
@@ -169,12 +167,30 @@ module.exports.retrieve = async (event, context, callback) => {
 
     return dynamoDb.scan(params).promise()
         .then(scanResult => {
-            console.log(scanResult)
-            const data = (scanResult.Count === 0) ? SETTINGS_JSON : scanResult.Items[0].properties;
+            return (scanResult.Count === 0) ? SETTINGS_JSON : scanResult.Items[0].properties;
+        })
+};
+
+const getSectorInformation = sectorId => {
+  return getSettings()
+      .then(result => {
+          console.log('sector information', result.sectors);
+        return result.sectors.find( sector => sector.id == sectorId)
+      })
+};
+
+// ####################
+// LAMBDAS
+// ####################
+
+module.exports.retrieveSettings = async (event, context, callback) => {
+    return getSettings()
+        .then(scanResult => {
+            console.log(scanResult);
             return callback(null, {
                 statusCode: 200,
                 body: JSON.stringify({
-                    data: data
+                    data: scanResult
                 })
             });
         })
@@ -185,7 +201,7 @@ module.exports.retrieve = async (event, context, callback) => {
 };
 
 
-module.exports.submit = (event, context, callback) => {
+module.exports.submitSettings = (event, context, callback) => {
     const requestBody = JSON.parse(event.body);
 
     if (!requestBody) {
@@ -220,5 +236,24 @@ module.exports.submit = (event, context, callback) => {
                 })
             });
 
+        });
+};
+
+
+module.exports.retrieveSectorInfo = async (event, context, callback) => {
+    console.log('SectorInfo', event, context);
+    return getSectorInformation(event.pathParameters.id)
+        .then(data => {
+            console.log(data);
+            return callback(null, {
+                statusCode: 200,
+                body: JSON.stringify({
+                    data: data
+                })
+            });
+        })
+        .catch(err => {
+            console.log('Error:', JSON.stringify(err, null, 2));
+            return callback(err);
         });
 };

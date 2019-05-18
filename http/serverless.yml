@@ -67,20 +67,27 @@ provider:
 #    - exclude-me-dir/**
 
 functions:
-  retrieve:
-    handler: settings.retrieve
+  retrieveSettings:
+    handler: api.retrieveSettings
     description: Get settings properties for application
     events:
       - http:
           path: settings
           method: get
-  submit:
-    handler: settings.submit
+  submitSettings:
+    handler: api.submitSettings
     description: Submit settings properties for application
     events:
       - http:
           path: settings
           method: post
+  retrieveSectorInfo:
+    handler: api.retrieveSectorInfo
+    description: Get sector information
+    events:
+      - http:
+          path: sector/{id}
+          method: get
 #    The following are a few example events you can configure
 #    NOTE: Please make sure to change your handler code to work with those events
 #    Check the event documentation for details

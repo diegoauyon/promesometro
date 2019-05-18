@@ -38,16 +38,6 @@ Configure setttings
 
 ```
 
-### GET sectores/
-
-```json
-[{
-  "id": "",
-  "name": "",
-  "description": ""
-}]
-```
-
 ### GET sector/{id}
 
 ```json
