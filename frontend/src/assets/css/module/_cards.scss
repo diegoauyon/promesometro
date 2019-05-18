@@ -7,6 +7,13 @@
     box-shadow: 0 5px 5px #00000010;
     border: none;
     border-radius: 10px;
+    color: #000;
+
+    &:hover {
+        box-shadow: 0 5px 5px #00000030;
+        text-decoration: none;
+        color: #333;
+    }
 }
 
 main::after {
