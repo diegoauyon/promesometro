@@ -1,0 +1,40 @@
+a:focus,
+button:focus {
+    outline: none;
+}
+.promise__cite {
+    a {
+        position: relative;
+    
+        &:link,
+        &:active,
+        &:visited {
+            color: #000;
+            text-decoration: none;
+            transition: all 1s cubic-bezier(.17,.67,.83,.67);
+            cursor: pointer;
+        }
+    
+        &:hover {
+            color: $c-brand-2;
+        }
+    }
+    
+    &::after {
+        content: "";
+        display: block;
+        position: absolute;
+        bottom: -5px;
+        right: 0;
+        width: 50%;
+        height: 1px;
+        background: #000;
+        transition: all 1s cubic-bezier(.17,.67,.83,.67);
+    }
+
+    &:hover {
+        &::after {
+            width: 100%;
+        }
+    }
+}

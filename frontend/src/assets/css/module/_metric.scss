@@ -1,0 +1,55 @@
+.metric {
+    display: flex;
+    flex-flow: row nowrap;
+    align-items: center;
+
+    &__graph {
+        flex: 1;
+        display: block;
+        height: 6px;
+        background-color: #fff;
+        border-radius: 3px;
+        background: linear-gradient(to right, 
+                                    $c-negative 0%, 
+                                    $c-neutral 51%, 
+                                    $c-positive 100%);
+        position: relative;
+    }
+
+    &__location {
+        position: absolute;
+        top: -17px;
+        color: $c-brand-1;
+    }
+
+    &-positive {
+        color: $c-positive;
+    }
+
+    &-negative {
+        color: $c-negative;
+    }
+
+    &-neutral {
+        color: $c-neutral;
+    }
+
+    &-positive-bg,
+    &-negative-bg,
+    &-neutral-bg {
+        width: 33.333333%;
+        height: 100%;
+    }
+
+    &-positive-bg {
+        color: $c-positive;
+    }
+
+    &-negative-bg {
+        color: $c-negative;
+    }
+
+    &-neutral-bg {
+        color: $c-neutral;
+    }
+}
