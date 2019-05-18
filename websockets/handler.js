@@ -64,7 +64,6 @@ const sendMessageToAllConnected = (event, isWs) => {
     return getConnectionIds().then(connectionData => {
         if (!connectionData.Items) return;
         return connectionData.Items.map(connectionId => {
-            console.log('send msgs to all connected', connectionData)
             return isWs ? updateConnections(event, connectionId.connectionId) : 
                 send(event, connectionId.connectionId);
         });
@@ -92,7 +91,6 @@ const send = (event, connectionId) => {
         Data: "postData"
     };
 
-    console.log('send event');
     return apigwManagementApi.postToConnection(params).promise();
 };
 
@@ -102,12 +100,23 @@ const updateConnections = (event, connectionId) => {
         endpoint: WS_ENDPOINT
     });
 
+    let dynamodbRecords = [];
+    if (event.Records.length) {
+        dynamodbRecords = event.Records.map(record => {
+            return {
+                connectionId: record.dynamodb.NewImage.connectionId.S
+            }
+        })
+    }
+
     const params = {
         ConnectionId: connectionId,
-        Data: "dynamo new record"
+        Data: JSON.stringify(dynamodbRecords)
     };
 
-    console.log('update connections');
+    console.log('incoming dynamodb records', 
+        JSON.stringify(event.Records));
+
     return apigwManagementApi.postToConnection(params).promise();
 };
 
