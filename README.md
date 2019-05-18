@@ -4,9 +4,10 @@ Hackaton promesometro
 
 ## Endpoints
 
+### POST settings/
 ### GET setttings/
 
-Return promises.json
+Configure setttings 
 
 ```json
 
