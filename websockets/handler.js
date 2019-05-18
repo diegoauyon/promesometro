@@ -3,7 +3,7 @@
 require('aws-sdk/clients/apigatewaymanagementapi');
 const AWS = require('aws-sdk');
 
-const CHATCONNECTION_TABLE = 'chatIdTable';
+const WSCONNECTIONS_TABLE = 'websocketConnections';
 
 const WS_ENDPOINT = "kdx5uu8x2k.execute-api.us-east-2.amazonaws.com/dev";
 
@@ -75,7 +75,7 @@ const sendMessageToAllConnected = (event, isWs) => {
 
 const getConnectionIds = () => {
     const params = {
-        TableName: CHATCONNECTION_TABLE,
+        TableName: WSCONNECTIONS_TABLE,
         ProjectionExpression: 'connectionId'
     };
 
@@ -118,7 +118,7 @@ const updateConnections = (event, connectionId) => {
 
 const addConnection = connectionId => {
     const params = {
-        TableName: CHATCONNECTION_TABLE,
+        TableName: WSCONNECTIONS_TABLE,
         Item: {
             connectionId: connectionId
         }
@@ -129,7 +129,7 @@ const addConnection = connectionId => {
 
 const deleteConnection = connectionId => {
     const params = {
-        TableName: CHATCONNECTION_TABLE,
+        TableName: WSCONNECTIONS_TABLE,
         Key: {
             connectionId: connectionId
         }
