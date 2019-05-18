@@ -1,7 +1,13 @@
-a:focus,
-button:focus {
-    outline: none;
+a,
+button {
+    cursor: pointer;
+    
+    &:focus,
+    &:focus {
+        outline: none;
+    }
 }
+
 .promise__cite {
     a {
         position: relative;

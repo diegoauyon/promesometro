@@ -1,7 +1,6 @@
 .header {
     &_front {
-        background: $gradient,
-        url(../images/Vector.svg);
+        background: url(../img/shape.svg), $gradient;
         padding-top: 65px;
         border-bottom: 1px solid #657596;    
         border-bottom-left-radius: 30px;

@@ -13,7 +13,7 @@ const config = {
     ],
     output: {
         path: path.resolve(__dirname, 'dist'),
-        publicPath: (env === 'development') ? '/' : '',
+        publicPath: (env === 'development') ? '/' : '/',
         filename: (env === 'development') ? '[name].[hash].js' : '[name].[contenthash].js'
     },
     optimization: {
@@ -35,8 +35,7 @@ const config = {
     mode: env,
     devtool: (env === 'development') ? 'cheap-module-eval-source-map' : undefined,
     devServer: {
-        historyApiFallback: true,
-        contentBase: "/"
+        historyApiFallback: true
     },
     module: {
         rules: [
@@ -65,15 +64,12 @@ const config = {
                 ],
             },
             {
-              test: /\.(ico|jpg|jpeg|png|gif|eot|otf|webp|svg|ttf|woff|woff2)(\?.*)?$/,
-              use: {
-                loader: 'file-loader',
-                options: {
-                  name: '[name].[ext]',
-                  outputPath:"fonts/"
-                }
-              }
-            },
+                test: /\.(png|jpg|gif|otf)$/,
+                use: [{
+                    loader: 'file-loader',
+                    options: {}
+                }]
+            }
         ],
     },
     plugins: [

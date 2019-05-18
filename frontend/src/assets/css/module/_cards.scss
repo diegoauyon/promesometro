@@ -7,6 +7,14 @@
     box-shadow: 0 5px 5px #00000010;
     border: none;
     border-radius: 10px;
+    transition: all .25s cubic-bezier(.17,.67,.83,.67);
+    color: #000;
+
+    &:hover {
+        box-shadow: 0 8px 8px #00000040;
+        color: #000;
+        text-decoration: none;
+    }
 }
 
 main::after {
