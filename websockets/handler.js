@@ -3,7 +3,9 @@
 require('aws-sdk/clients/apigatewaymanagementapi');
 const AWS = require('aws-sdk');
 
-const CHATCONNECTION_TABLE = 'chatIdTable';
+const WSCONNECTIONS_TABLE = 'websocketConnections';
+
+const WS_ENDPOINT = "kdx5uu8x2k.execute-api.us-east-2.amazonaws.com/dev";
 
 let dynamo = new AWS.DynamoDB.DocumentClient();
 
@@ -60,18 +62,20 @@ module.exports.sendMessageHandler = (event, context, callback) => {
     });
 }
 
-const sendMessageToAllConnected = (event) => {
+const sendMessageToAllConnected = (event, isWs) => {
     return getConnectionIds().then(connectionData => {
+        if (!connectionData.Items) return;
         return connectionData.Items.map(connectionId => {
-            console.log(connectionId, connectionData)
-            return send(event, connectionId.connectionId);
+            console.log('send msgs to all connected', connectionData)
+            return isWs ? updateConnections(event, connectionId.connectionId) : 
+                send(event, connectionId.connectionId);
         });
     });
 }
 
 const getConnectionIds = () => {
     const params = {
-        TableName: CHATCONNECTION_TABLE,
+        TableName: WSCONNECTIONS_TABLE,
         ProjectionExpression: 'connectionId'
     };
 
@@ -79,26 +83,42 @@ const getConnectionIds = () => {
 }
 
 const send = (event, connectionId) => {
-    const body = JSON.parse(event.body);
-    console.log("send 83", body)
-    const postData = body.data;
-
     const endpoint = event.requestContext.domainName + "/" + event.requestContext.stage;
+    console.log("Endpoint is ----> ", endpoint);
+    
     const apigwManagementApi = new AWS.ApiGatewayManagementApi({
-//        apiVersion: "2018-11-29",
         endpoint: endpoint
     });
 
     const params = {
         ConnectionId: connectionId,
-        Data: postData
+        Data: "postData"
     };
+
+    console.log('send event');
+    return apigwManagementApi.postToConnection(params).promise();
+};
+
+const updateConnections = (event, connectionId) => {
+
+    const apigwManagementApi = new AWS.ApiGatewayManagementApi({
+        endpoint: WS_ENDPOINT
+    });
+
+    console.log('CONNECTION ID IS ---> ', connectionId)
+
+    const params = {
+        ConnectionId: connectionId,
+        Data: "dynamo new record"
+    };
+
+    console.log('update connections');
     return apigwManagementApi.postToConnection(params).promise();
 };
 
 const addConnection = connectionId => {
     const params = {
-        TableName: CHATCONNECTION_TABLE,
+        TableName: WSCONNECTIONS_TABLE,
         Item: {
             connectionId: connectionId
         }
@@ -109,11 +129,30 @@ const addConnection = connectionId => {
 
 const deleteConnection = connectionId => {
     const params = {
-        TableName: CHATCONNECTION_TABLE,
+        TableName: WSCONNECTIONS_TABLE,
         Key: {
             connectionId: connectionId
         }
     };
 
     return dynamo.delete(params).promise();
+};
+
+// Trigger events
+module.exports.updateTableHandler = (event, context, callback) => {
+    console.log('updateTableHandler context is - ', context);
+    console.log('updateTableHandler event is - ', event);
+
+    sendMessageToAllConnected(event, true).then(() => {
+        callback(null, successfullResponse)
+    }).catch(err => {
+        callback(null, JSON.stringify(err));
+    });
+
+};
+
+module.exports.broadcastConnections = (event, context, callback) => {
+    console.log('broadcastConnections context is - ', context);
+    console.log('broadcastConnections event is - ', event);
+    
 };
