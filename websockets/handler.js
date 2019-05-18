@@ -64,7 +64,6 @@ const sendMessageToAllConnected = (event, isWs) => {
     return getConnectionIds().then(connectionData => {
         if (!connectionData.Items) return;
         return connectionData.Items.map(connectionId => {
-            console.log('send msgs to all connected', connectionData)
             return isWs ? updateConnections(event, connectionId.connectionId) : 
                 send(event, connectionId.connectionId);
         });
@@ -92,7 +91,6 @@ const send = (event, connectionId) => {
         Data: "postData"
     };
 
-    console.log('send event');
     return apigwManagementApi.postToConnection(params).promise();
 };
 
@@ -107,7 +105,9 @@ const updateConnections = (event, connectionId) => {
         Data: "dynamo new record"
     };
 
-    console.log('update connections');
+    const record = event.Records[0] ? event.Records[0].dynamodb: {};
+    console.log('update connections', JSON.stringify(record));
+    
     return apigwManagementApi.postToConnection(params).promise();
 };
 
