@@ -11,10 +11,28 @@ Return promises.json
 ```json
 
 {
-  "promises": [{}],
-  "sectors" : [],
-  "candidate" : {} ,
-  "extras": [ "","","" ]
+  "promises": [
+  {
+      "id": 18,
+      "hashtag": "otr3",
+      "text": "Promesa 18",
+      "sector_id": 6
+   }
+  ],
+  "sectors" : [
+  {
+      "id": 1,
+      "name": "Economía",
+      "description": "Promesas "
+    }
+  ],
+  "candidate": {
+    "name": "Posible presidente",
+    "photo_url": "https://via.placeholder.com/150?text=face",
+    "user_id": "user",
+    "oficial_ids" : ["gobernacion", "partido"],
+    "info": "orem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum"
+  }
 }
 
 ```
@@ -69,6 +87,7 @@ Return promises.json
       "created_at": payload.created_at,
       "lang": payload.lang,
       "text": wholeText,
+      "promise_id": ""
     }
   ],
   "ws": "",
