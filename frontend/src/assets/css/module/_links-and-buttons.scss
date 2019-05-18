@@ -1,7 +1,11 @@
-a:focus,
-button:focus {
-    outline: none;
+a,
+button {
+    cursor: pointer;
+    &:focus {
+        outline: none;
+    }
 }
+
 .promise__cite {
     a {
         position: relative;
@@ -12,7 +16,6 @@ button:focus {
             color: #000;
             text-decoration: none;
             transition: all 1s cubic-bezier(.17,.67,.83,.67);
-            cursor: pointer;
         }
     
         &:hover {
