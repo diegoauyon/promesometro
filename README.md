@@ -41,19 +41,19 @@ Hackaton promesometro
 {
   "tweets": [
   {
-      day: new Date(payload.created_at).toISOString().substring(0, 10), // add primarykey ('day')
-      timestamp_ms: payload.timestamp_ms,
-      id: payload.id,
-      id_str: payload.id_str,
-      user_screen_name: payload.user.screen_name,
-      user_name: payload.user.name,
-      user_id: payload.user.id,
-      user_id_str: payload.user.id_str,
-      url: payload.url,
-      expanded_url: payload.expanded_url,
-      created_at: payload.created_at,
-      lang: payload.lang,
-      text: wholeText,
+      "day": new Date(payload.created_at).toISOString().substring(0, 10), // add primarykey ('day')
+      "timestamp_ms": payload.timestamp_ms,
+      "id": payload.id,
+      "id_str": payload.id_str,
+      "user_screen_name": payload.user.screen_name,
+      "user_name": payload.user.name,
+      "user_id": payload.user.id,
+      "user_id_str": payload.user.id_str,
+      "url": payload.url,
+      "expanded_url": payload.expanded_url,
+      "created_at": payload.created_at,
+      "lang": payload.lang,
+      "text": wholeText,
     }
   ],
   "ws": "",
@@ -92,10 +92,10 @@ Hackaton promesometro
       "name": "",
       "description": ""
     }],
-    "candidate": {
+    "president": {
       "name": "",
       "photo_url": "",
-      "twitter_url": "",
+      "user_id": "",
       "info": ""
     }
 } 
