@@ -1,0 +1,13 @@
+.card_metric {
+    background-color: rgba(1, 0, 7, 0.62);
+    box-shadow: 0 4px 0 #ffffff17;
+}
+
+main::after {
+    content: "";
+    display: block;
+    position: absolute;
+    width: 100px;
+    height: 100px;
+    top: 0;
+}

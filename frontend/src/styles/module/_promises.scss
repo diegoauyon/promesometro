@@ -1,0 +1,18 @@
+.promise {
+    color: #cfd6e7;
+    
+    &__cite {
+        position: relative;
+
+        &:after {
+            content: "";
+            display: block;
+            position: absolute;
+            bottom: -5px;
+            right: 0;
+            width: 50%;
+            height: 1px;
+            background: #fff;
+        }
+    }
+}

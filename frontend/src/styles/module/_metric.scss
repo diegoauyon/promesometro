@@ -1,0 +1,41 @@
+.metric {
+    display: flex;
+    flex-flow: row nowrap;
+    align-items: center;
+
+    &__graph {
+        flex: 1;
+        display: block;
+        height: 6px;
+        background-color: #fff;
+        border-radius: 3px;
+        background: linear-gradient(to right, #7e0202 0%,#ffffff 51%,#027202 100%);
+    }
+
+    &-positive,
+    &-negative,
+    &-neutral {
+        width: 33.333333%;
+        height: 100%;
+    }
+
+    &-positive {
+        background-color: green;
+    }
+
+    &-negative {
+        background-color: red;
+    }
+
+    &-neutral {
+        background-color: #999;
+    }
+
+    &-up {
+        color: #027202;
+    }
+
+    &-down {
+        color: #7e0202;
+    }
+}
