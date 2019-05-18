@@ -4,6 +4,9 @@ websockets/node_modules
 frontend/node_modules
 jspm_packages
 
+# vscode
+.DS_Store
+
 # Serverless directories
 .serverless
 .idea
