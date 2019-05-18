@@ -1,12 +1,10 @@
 'use strict';
 
 require('aws-sdk/clients/apigatewaymanagementapi');
+
 const AWS = require('aws-sdk');
-
 const WSCONNECTIONS_TABLE = 'websocketConnections';
-
 const WS_ENDPOINT = "kdx5uu8x2k.execute-api.us-east-2.amazonaws.com/dev";
-
 let dynamo = new AWS.DynamoDB.DocumentClient();
 
 const successfullResponse = {
@@ -84,7 +82,6 @@ const getConnectionIds = () => {
 
 const send = (event, connectionId) => {
     const endpoint = event.requestContext.domainName + "/" + event.requestContext.stage;
-    console.log("Endpoint is ----> ", endpoint);
     
     const apigwManagementApi = new AWS.ApiGatewayManagementApi({
         endpoint: endpoint
@@ -104,8 +101,6 @@ const updateConnections = (event, connectionId) => {
     const apigwManagementApi = new AWS.ApiGatewayManagementApi({
         endpoint: WS_ENDPOINT
     });
-
-    console.log('CONNECTION ID IS ---> ', connectionId)
 
     const params = {
         ConnectionId: connectionId,
@@ -140,19 +135,9 @@ const deleteConnection = connectionId => {
 
 // Trigger events
 module.exports.updateTableHandler = (event, context, callback) => {
-    console.log('updateTableHandler context is - ', context);
-    console.log('updateTableHandler event is - ', event);
-
     sendMessageToAllConnected(event, true).then(() => {
         callback(null, successfullResponse)
     }).catch(err => {
         callback(null, JSON.stringify(err));
     });
-
-};
-
-module.exports.broadcastConnections = (event, context, callback) => {
-    console.log('broadcastConnections context is - ', context);
-    console.log('broadcastConnections event is - ', event);
-    
 };
