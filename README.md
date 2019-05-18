@@ -4,6 +4,21 @@ Hackaton promesometro
 
 ## Endpoints
 
+### GET setttings/
+
+Return promises.json
+
+```json
+
+{
+  "promises": [{}],
+  "sectors" : [],
+  "candidate" : {} ,
+  "extras": [ "","","" ]
+}
+
+```
+
 ### GET sectores/
 
 ```json
