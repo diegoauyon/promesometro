@@ -81,6 +81,18 @@ const config = {
         new HtmlWebpackPlugin({
             title: 'modern-webpack-starter',
             template: path.resolve(__dirname, 'src', 'index.html'),
+            filename: 'index.html',
+            inject: true,
+            minify: (env === 'development') ? undefined : {
+                removeComments: true,
+                collapseWhitespace: true,
+                removeAttributeQuotes: true,
+            }
+        }),
+        new HtmlWebpackPlugin({
+            title: 'modern-webpack-starter',
+            template: path.resolve(__dirname, 'src', 'sector-promises.html'),
+            filename: 'sector-promises.html',
             inject: true,
             minify: (env === 'development') ? undefined : {
                 removeComments: true,
