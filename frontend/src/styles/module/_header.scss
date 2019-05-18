@@ -1,0 +1,51 @@
+.header {
+    &_front {
+        background-color: rgba(0, 0, 0, 0.3);
+        padding-top: 65px;
+        border-bottom: 1px solid #657596;
+    }
+
+    &__btn {
+        background: none;
+        border: none;
+        outline: none;
+        padding: 0;
+        color: #fff;
+        outline: none;
+
+        &_pres {
+            width: 20px;
+            height: 20px;
+            background: url(../img/jimmy-morales.jpg) 50% 50% no-repeat;
+        }
+
+        span {
+            font-size: 30px;
+        }
+    }
+
+    &__action {
+        position: absolute;
+        width: 42px;
+        height: 42px;
+        right: 20px;
+        bottom: -21px;
+        border: 2px solid #fff;
+        border-radius: 50%;
+        color: #424c65;
+        background: #fff;
+        outline: none;
+        box-shadow: 3px 3px 3px rgba(0, 0, 0, .3);
+
+        &:focus {
+            outline: none;
+        }
+    }
+}
+
+.nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #cdcdcd;
+}
