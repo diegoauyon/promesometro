@@ -100,14 +100,23 @@ const updateConnections = (event, connectionId) => {
         endpoint: WS_ENDPOINT
     });
 
+    let dynamodbRecords = [];
+    if (event.Records.length) {
+        dynamodbRecords = event.Records.map(record => {
+            return {
+                connectionId: record.dynamodb.NewImage.connectionId.S
+            }
+        })
+    }
+
     const params = {
         ConnectionId: connectionId,
-        Data: "dynamo new record"
+        Data: JSON.stringify(dynamodbRecords)
     };
 
-    const record = event.Records[0] ? event.Records[0].dynamodb: {};
-    console.log('update connections', JSON.stringify(record));
-    
+    console.log('incoming dynamodb records', 
+        JSON.stringify(event.Records));
+
     return apigwManagementApi.postToConnection(params).promise();
 };
 
