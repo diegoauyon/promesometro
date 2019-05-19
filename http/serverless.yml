@@ -83,6 +83,7 @@ functions:
       - http:
           path: settings
           method: get
+          cors: true
   submitSettings:
     handler: api.submitSettings
     description: Submit settings properties for application
@@ -90,6 +91,7 @@ functions:
       - http:
           path: settings
           method: post
+          cors: true
   retrievePromiseTweets:
     handler: api.retrievePromiseTweets
     description: Get promise information
@@ -97,6 +99,7 @@ functions:
       - http:
           path: promise/{id}
           method: get
+          cors: true
   retrieveSectorTweets:
     handler: api.retrieveSectorTweets
     description: Get sector information and tweets
@@ -104,6 +107,7 @@ functions:
       - http:
           path: sector/{id}
           method: get
+          cors: true
 #    The following are a few example events you can configure
 #    NOTE: Please make sure to change your handler code to work with those events
 #    Check the event documentation for details
