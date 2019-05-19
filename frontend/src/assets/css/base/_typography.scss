@@ -1,0 +1,20 @@
+@import url('https://fonts.googleapis.com/css?family=Open+Sans&display=swap');
+
+body {
+    font-family: 'Roboto', sans-serif;
+}
+
+cite {
+    // font-family: "Playfair Display", Georgia, "Times New Roman", serif;
+}
+
+h1 {
+    margin: 0;
+    font-weight: bold;
+}
+
+@include media-breakpoint-down(xs) {
+    h1 {
+        font-size: 150%;
+    }
+}

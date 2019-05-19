@@ -1,0 +1,61 @@
+.header {
+    &_front {
+        background: $gradient,
+        url(../images/Vector.svg);
+        padding-top: 65px;
+        border-bottom: 1px solid #657596;    
+        border-bottom-left-radius: 30px;
+        border-bottom-right-radius: 30px;
+    }
+
+    &__btn {
+        background: none;
+        border: none;
+        outline: none;
+        padding: 0;
+        outline: none;
+        color: $c-brand-1-contrast;
+
+        &_pres {
+            width: 20px;
+            height: 20px;
+        }
+
+        span {
+            font-size: 24px;
+        background: #562aad;
+            padding-top: 3px;
+            width: 42px;
+            height: 42px;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+        }
+    }
+
+    &__action {
+        position: absolute;
+        width: 52px;
+        height: 52px;
+        right: 20px;
+        bottom: -21px;
+        border: 2px solid $c-twitter;
+        border-radius: 50%;
+        color: #fff;
+        background: $c-twitter;
+       outline: none;
+        box-shadow: 3px 3px 8px rgba(0, 0, 0, 0.2);
+        font-size: 30px;
+
+        &:focus {
+            outline: none;
+        }
+    }
+}
+
+.nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #cdcdcd;
+}

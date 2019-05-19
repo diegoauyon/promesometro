@@ -1,0 +1,19 @@
+.card-title {
+    font-weight: 700;
+}
+
+.card_metric {
+    background-color: $c-card;
+    box-shadow: 0 5px 5px #00000010;
+    border: none;
+    border-radius: 10px;
+}
+
+main::after {
+    content: "";
+    display: block;
+    position: absolute;
+    width: 100px;
+    height: 100px;
+    top: 0;
+}
