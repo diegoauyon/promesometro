@@ -11,7 +11,7 @@
 #
 # Happy Coding!
 
-service: api-service # NOTE: update this with your service name
+service: api-lambda-service # NOTE: update this with your service name
 
 # You can pin your service to only deploy with a specific Serverless version
 # Check out our docs for more details
@@ -31,7 +31,7 @@ provider:
         - "dynamodb:DeleteItem"
         - "dynamodb:Scan"
       Resource:
-        - Fn::GetAtt: [SettingsTable, Arn]
+        - Fn::GetAtt: [SettingsOptionsTable, Arn]
     - Effect: "Allow"
       Action:
         - "execute-api:ManageConnections"
@@ -90,19 +90,19 @@ functions:
       - http:
           path: settings
           method: post
-  retrieveSectorInfo:
-    handler: api.retrieveSectorInfo
-    description: Get sector information
-    events:
-      - http:
-          path: sector/{id}
-          method: get
   retrievePromiseTweets:
     handler: api.retrievePromiseTweets
-    description: Get sector information
+    description: Get promise information
     events:
       - http:
           path: promise/{id}
+          method: get
+  retrieveSectorTweets:
+    handler: api.retrieveSectorTweets
+    description: Get sector information and tweets
+    events:
+      - http:
+          path: sector/{id}
           method: get
 #    The following are a few example events you can configure
 #    NOTE: Please make sure to change your handler code to work with those events
@@ -140,7 +140,7 @@ functions:
 
 resources:
   Resources:
-    SettingsTable:
+    SettingsOptionsTable:
       Type: "AWS::DynamoDB::Table"
       Properties:
         AttributeDefinitions:
@@ -150,4 +150,4 @@ resources:
           - AttributeName: "id"
             KeyType: "HASH"
         BillingMode: PAY_PER_REQUEST
-        TableName: settings_table
+        TableName: settings_options_table

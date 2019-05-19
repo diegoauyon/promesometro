@@ -44,29 +44,8 @@ Configure setttings
 {
   "id": 1,
   "tweets_count": 0,
-  "sentiment_score": 0.1
-}
-```
-
-### GET sector/{id}/promises
-
-```json
-[{
-  "id": 1,
-  "hashtag": "",
-  "text":""
-}]
-```
-
-### GET promise/{id}
-
-```json
-{
-  "id": 0,
-  "hashtag": "",
-  "text": "",
   "sentiment_score": 0.1,
-   "tweets": [
+  "tweets": [
   {
       "day": new Date(payload.created_at).toISOString().substring(0, 10), // add primarykey ('day')
       "timestamp_ms": payload.timestamp_ms,
@@ -89,10 +68,16 @@ Configure setttings
 }
 ```
 
-### GET sector/{id}/tweets
+### GET promise/{id}
+
 ```json
 {
-  "tweets": [
+  "id": 0,
+  "hashtag": "",
+  "text": "",
+  "tweets_count": 0,
+  "sentiment_score": 0.1,
+   "tweets": [
   {
       "day": new Date(payload.created_at).toISOString().substring(0, 10), // add primarykey ('day')
       "timestamp_ms": payload.timestamp_ms,

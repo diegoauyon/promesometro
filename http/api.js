@@ -1,7 +1,7 @@
 'use strict';
 
 const AWS = require('aws-sdk/index');
-const SETTINGS_TABLE = 'settings_table';
+const SETTINGS_TABLE = 'settings_options_table';
 const TWEETS_TABLE = 'promesometro-tweets';
 
 let dynamoDb = new AWS.DynamoDB.DocumentClient();
@@ -237,7 +237,35 @@ const getPromiseTweets = promiseHashtag => {
         console.log(promiseInformation, tweets, promiseTweets);
 
         return Object.assign({}, promiseInformation, {tweets: promiseTweets}, {
-                top_positive: topPositive, top_negative: topNegative, sentiment_score: sentimentScore
+                top_positive: topPositive, top_negative: topNegative, sentiment_score: sentimentScore, tweets_count: promiseTweets.length
+            }
+        );
+    });
+};
+
+
+const getSectorTweets = sectorId => {
+    return Promise.all([getSectorInformation(sectorId), getTweets()]).then(function (values) {
+        const sectorInformation = values[0];
+        const tweets = values[1];
+
+        console.log('tweeeets', JSON.stringify(tweets), JSON.stringify(sectorInformation))
+
+        const sectorTweets = tweets.filter(tweet => sectorInformation.hashtags_list.includes(tweet.promise_id));
+        // ---------------------------------------------------------------------------
+        const topPositive = tweets.find(tweet => tweet.sentiment_score == Math.max.apply(Math, sectorTweets.map(function (tweet) {
+            return tweet.sentiment_score;
+        })))
+        const topNegative = tweets.find(tweet => tweet.sentiment_score == Math.min.apply(Math, sectorTweets.map(function (tweet) {
+            return tweet.sentiment_score;
+        })))
+
+        const sentimentScore = sectorTweets.reduce((total, next) => total + next.sentiment_score, 0) / sectorTweets.length;
+
+        console.log(sectorInformation, tweets, sectorTweets);
+
+        return Object.assign({}, sectorInformation, {tweets: sectorTweets}, {
+                top_positive: topPositive, top_negative: topNegative, sentiment_score: sentimentScore, tweets_count: sectorTweets.length
             }
         );
     });
@@ -304,7 +332,7 @@ module.exports.submitSettings = (event, context, callback) => {
 };
 
 
-module.exports.retrieveSectorInfo = async (event, context, callback) => {
+/*module.exports.retrieveSectorInfo = async (event, context, callback) => {
     console.log('SectorInfo', event, context);
 
     if (!event.pathParameters) {
@@ -326,7 +354,7 @@ module.exports.retrieveSectorInfo = async (event, context, callback) => {
             console.log('Error:', JSON.stringify(err, null, 2));
             return callback(err);
         });
-};
+};*/
 
 
 // ----------------------------------------------------------------------------
@@ -340,6 +368,31 @@ module.exports.retrievePromiseTweets = async (event, context, callback) => {
     }
 
     return getPromiseTweets(event.pathParameters.id)
+        .then(data => {
+            console.log(data);
+            return callback(null, {
+                statusCode: 200,
+                body: JSON.stringify({
+                    data: data
+                })
+            });
+        })
+        .catch(err => {
+            console.log('Error:', JSON.stringify(err, null, 2));
+            return callback(err);
+        });
+};
+
+
+module.exports.retrieveSectorTweets = async (event, context, callback) => {
+    console.log('retrievePromiseTweets', event, context);
+
+    if (!event.pathParameters) {
+        callback(new Exception("No parameters in the request"));
+        return
+    }
+
+    return getSectorTweets(event.pathParameters.id)
         .then(data => {
             console.log(data);
             return callback(null, {
