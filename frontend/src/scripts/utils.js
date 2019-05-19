@@ -9,7 +9,7 @@ const PROMISE_URL = 'https://9mtn9bajdj.execute-api.us-east-2.amazonaws.com/dev/
 export const getSettings = function(callback) {
     return $.getJSON(SETTINGS_URL)
             .done(response => {
-                callback(JSON.parse(response.data))
+                callback(response.data)
             })
 }
 
