@@ -37,6 +37,10 @@ class KinesisStreamListener(StreamListener):
                     promise_id = hashtag["text"]
 
             normalization, clean_tweet = self.analyzer.analyze(original_text)
+
+            if normalization == -1:
+                return True
+
             result = {
                 "day": data["created_at"],
                 "timestamp_ms": data["timestamp_ms"],

@@ -16,5 +16,8 @@ def get_config():
             "APP_SECRET": env("APP_SECRET"),
             "ACCESS_TOKEN": env("ACCESS_TOKEN"),
             "ACCESS_TOKEN_SECRET": env("ACCESS_TOKEN_SECRET")
+        },
+        "API":{
+            "GET_SETTINGS_URL": env("GET_SETTINGS_URL")
         }
     }
