@@ -37,6 +37,15 @@ provider:
         - "execute-api:ManageConnections"
       Resource:
         - "arn:aws:execute-api:*:*:**/@connections/*"
+    - Effect: Allow
+      Action:
+        - dynamodb:Query
+        - dynamodb:Scan
+        - dynamodb:GetItem
+        - dynamodb:PutItem
+        - dynamodb:UpdateItem
+        - dynamodb:DeleteItem
+      Resource: "arn:aws:dynamodb:${self:provider.region}:*:table/promesometro-tweets"
 # you can add statements to the Lambda function's IAM Role here
 #  iamRoleStatements:
 #    - Effect: "Allow"
@@ -87,6 +96,13 @@ functions:
     events:
       - http:
           path: sector/{id}
+          method: get
+  retrievePromiseTweets:
+    handler: api.retrievePromiseTweets
+    description: Get sector information
+    events:
+      - http:
+          path: promise/{id}/tweets
           method: get
 #    The following are a few example events you can configure
 #    NOTE: Please make sure to change your handler code to work with those events
