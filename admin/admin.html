@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <meta charset="utf-8" />
+<head>
+    <meta charset="utf-8"/>
     <title>CSS Integration JSON Editor Example</title>
 
     <!-- Foundation CSS framework (Bootstrap and jQueryUI also supported) -->
@@ -12,35 +12,37 @@
     <script src="https://cdn.jsdelivr.net/npm/@json-editor/json-editor@latest/dist/jsoneditor.min.js"></script>
 
     <script>
-    // Set the default CSS theme and icon library globally
-    JSONEditor.defaults.theme = 'bootstrap4';
-    JSONEditor.defaults.iconlib = 'fontawesome4';
+        // Set the default CSS theme and icon library globally
+        JSONEditor.defaults.theme = 'bootstrap4';
+        JSONEditor.defaults.iconlib = 'fontawesome4';
     </script>
-  </head>
-  <body>
-  <div class="container-fluid">
+</head>
+<body>
+<div class="container">
     <div class='row justify-content-md-center'>
-      <div class='col'>
-        <h1>Admin Promesometro</h1>
-      </div>
-    </div>
-    <div class='row justify-content-md-center'>
-      <div class='col'>
-        <button id='submit' class='tiny'>Submit (console.log)</button>
-        <button id='restore' class='secondary tiny'>Restore to Default</button>
-        <span id='valid_indicator' class='label'></span>
-      </div>
-    </div>
-    <div class='row justify-content-md-center'>
-      <div id='editor_holder' class='col'></div>
+        <div class='col'>
+            <h1>Admin Promesometro</h1>
+        </div>
     </div>
 </div>
-    <script>
-      // This is the starting value for the editor
-      // We will use this to seed the initial editor
-      // and to provide a "Restore to Default" button.
-      var starting_value =
-          {
+<div class="container">
+    <div class='row justify-content-md-center'>
+        <div class='col'>
+            <button id='submit' class='tiny'>Submit (console.log)</button>
+        </div>
+    </div>
+</div>
+<div class="container">
+    <div class='row justify-content-md-center'>
+        <div id='editor_holder' class='col'></div>
+    </div>
+</div>
+<script>
+    // This is the starting value for the editor
+    // We will use this to seed the initial editor
+    // and to provide a "Restore to Default" button.
+    var starting_value =
+{
   "promises": [
     {
       "id": 1,
@@ -155,88 +157,97 @@
     {
       "id": 1,
       "name": "Economía",
-      "description": "Promesas "
+      "description": "Promesas ",
+      "hashtags_list" : ["eco1", "eco2", "eco3"]
     },
     {
       "id": 2,
       "name": "Seguridad",
-      "description": "Promesas "
+      "description": "Promesas ",
+      "hashtags_list" : ["seg1", "seg2", "seg3"]
     },
     {
       "id": 3,
       "name": "Anti Corrupción",
-      "description": "Promesas "
+      "description": "Promesas ",
+      "hashtags_list" : ["cor1", "cor2", "cor3"]
     },
     {
       "id": 4,
       "name": "Salud",
-      "description": "Promesas "
+      "description": "Promesas ",
+      "hashtags_list" : ["sal1", "sal2", "sal3"]
     },
     {
       "id": 5,
       "name": "Educación",
-      "description": "Promesas "
+      "description": "Promesas ",
+      "hashtags_list" : ["edu1", "edu2", "edu3"]
     },
     {
       "id": 6,
       "name": "Otros",
-      "description": "Promesas "
+      "description": "Promesas ",
+      "hashtags_list" : ["otr1", "otr2", "otr3"]
     }
   ],
   "candidate": {
     "name": "Posible presidente",
     "photo_url": "https://via.placeholder.com/150?text=face",
     "user_id": "user",
-    "oficial_ids" : ["gobernacion", "partido"],
+    "oficial_ids": [
+                "89030065",
+                "130315077"
+            ],
     "info": "orem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum"
   }
 }
 
-      // Initialize the editor
-      var editor = new JSONEditor(document.getElementById('editor_holder'),{
+    // Initialize the editor
+    var editor = new JSONEditor(document.getElementById('editor_holder'), {
         // Enable fetching schemas via ajax
         ajax: true,
 
         // The schema for the editor
         schema: {
-          $ref: "promises.schema.json",
-          format: "grid"
+            $ref: "promises.schema.json",
+            format: "grid"
         },
 
         // Seed the form with a starting value
         startval: starting_value
-      });
+    });
 
-      // Hook up the submit button to log to the console
-      document.getElementById('submit').addEventListener('click',function() {
+    // Hook up the submit button to log to the console
+    document.getElementById('submit').addEventListener('click', function () {
         // Get the value from the editor
         console.log(editor.getValue());
-      });
+    });
 
-      // Hook up the Restore to Default button
-      document.getElementById('restore').addEventListener('click',function() {
+    // Hook up the Restore to Default button
+    document.getElementById('restore').addEventListener('click', function () {
         editor.setValue(starting_value);
-      });
+    });
 
-      // Hook up the validation indicator to update its
-      // status whenever the editor changes
-      editor.on('change',function() {
+    // Hook up the validation indicator to update its
+    // status whenever the editor changes
+    editor.on('change', function () {
         // Get an array of errors from the validator
         var errors = editor.validate();
 
         var indicator = document.getElementById('valid_indicator');
 
         // Not valid
-        if(errors.length) {
-          indicator.className = 'label alert';
-          indicator.textContent = 'not valid';
+        if (errors.length) {
+            indicator.className = 'label alert';
+            indicator.textContent = 'not valid';
         }
         // Valid
         else {
-          indicator.className = 'label success';
-          indicator.textContent = 'valid';
+            indicator.className = 'label success';
+            indicator.textContent = 'valid';
         }
-      });
-    </script>
-  </body>
+    });
+</script>
+</body>
 </html>

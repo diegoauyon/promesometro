@@ -4,9 +4,10 @@ Hackaton promesometro
 
 ## Endpoints
 
+### POST settings/
 ### GET setttings/
 
-Return promises.json
+Configure setttings 
 
 ```json
 
@@ -37,16 +38,6 @@ Return promises.json
 
 ```
 
-### GET sectores/
-
-```json
-[{
-  "id": "",
-  "name": "",
-  "description": ""
-}]
-```
-
 ### GET sector/{id}
 
 ```json
@@ -67,9 +58,38 @@ Return promises.json
 }]
 ```
 
-### GET sector/{id}/tweets
-### GET promise/{id}/tweets
+### GET promise/{id}
 
+```json
+{
+  "id": 0,
+  "hashtag": "",
+  "text": "",
+  "sentiment_score": 0.1,
+   "tweets": [
+  {
+      "day": new Date(payload.created_at).toISOString().substring(0, 10), // add primarykey ('day')
+      "timestamp_ms": payload.timestamp_ms,
+      "id": payload.id,
+      "id_str": payload.id_str,
+      "user_screen_name": payload.user.screen_name,
+      "user_name": payload.user.name,
+      "user_id": payload.user.id,
+      "user_id_str": payload.user.id_str,
+      "url": payload.url,
+      "expanded_url": payload.expanded_url,
+      "created_at": payload.created_at,
+      "lang": payload.lang,
+      "text": wholeText,
+      "promise_id": ""
+    }
+  ],
+  "top_positive" : {},
+  "top_negative" : {}
+}
+```
+
+### GET sector/{id}/tweets
 ```json
 {
   "tweets": [
@@ -90,24 +110,8 @@ Return promises.json
       "promise_id": ""
     }
   ],
-  "ws": "",
-  "top_positive" : [{}],
-  "top_negative" : [{}]
-}
-```
-
-### GET promise/{id}
-
-```json
-{
-  "id": 0,
-  "hashtag": "",
-  "text": "",
-  "ws": [{
-    "url": "",
-    "name": ""
-  }],
-  "sentiment_score": 0.1
+  "top_positive" : {},
+  "top_negative" : {}
 }
 ```
 
