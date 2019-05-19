@@ -12,8 +12,17 @@ const successfullResponse = {
     body: 'everything is alright'
 };
 
+const dynamodbMapper = (dynamodbObject) => {
+    let mappedObject = {};
+    Object.keys(dynamodbObject).forEach((key, i) => {
+        mappedObject[key] = dynamodbObject[key].S || dynamodbObject[key].N || 
+        	dynamodbObject[key].B || dynamodbObject[key].BOOL || dynamodbObject[key].SS || 
+        		dynamodbObject[key].NS || dynamodbObject[key].BS
+    })
+    return mappedObject;
+}
+
 module.exports.connectionHandler = (event, context, callback) => {
-    console.log(event);
 
     if (event.requestContext.eventType === 'CONNECT') {
         // Handle connection
@@ -43,9 +52,6 @@ module.exports.connectionHandler = (event, context, callback) => {
 
 // THIS ONE DOESNT DO ANYHTING
 module.exports.defaultHandler = (event, context, callback) => {
-    console.log('defaultHandler was called');
-    console.log(event);
-
     callback(null, {
         statusCode: 200,
         body: JSON.stringify({event, context, callback})
@@ -100,22 +106,21 @@ const updateConnections = (event, connectionId) => {
         endpoint: WS_ENDPOINT
     });
 
+    console.log('existing dynamodb records', JSON.stringify(event.Records));
+
     let dynamodbRecords = [];
-    // if (event.Records.length) {
-    //     dynamodbRecords = event.Records.map(record => {
-    //         return {
-    //             connectionId: record.dynamodb.NewImage.connectionId.S
-    //         }
-    //     })
-    // }
+    if (event.Records.length) {
+        dynamodbRecords = event.Records.map(record => {
+            return dynamodbMapper(record.dynamodb.NewImage)
+        })
+    }
 
     const params = {
         ConnectionId: connectionId,
         Data: JSON.stringify(dynamodbRecords)
     };
 
-    console.log('incoming dynamodb records', JSON.stringify(event.Records));
-
+    console.log('incoming dynamodb records', JSON.stringify(dynamodbRecords));
     return apigwManagementApi.postToConnection(params).promise();
 };
 
