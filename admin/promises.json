@@ -113,39 +113,48 @@
     {
       "id": 1,
       "name": "Economía",
-      "description": "Promesas "
+      "description": "Promesas ",
+      "hashtags_list" : ["eco1", "eco2", "eco3"]
     },
     {
       "id": 2,
       "name": "Seguridad",
-      "description": "Promesas "
+      "description": "Promesas ",
+      "hashtags_list" : ["seg1", "seg2", "seg3"]
     },
     {
       "id": 3,
       "name": "Anti Corrupción",
-      "description": "Promesas "
+      "description": "Promesas ",
+      "hashtags_list" : ["cor1", "cor2", "cor3"]
     },
     {
       "id": 4,
       "name": "Salud",
-      "description": "Promesas "
+      "description": "Promesas ",
+      "hashtags_list" : ["sal1", "sal2", "sal3"]
     },
     {
       "id": 5,
       "name": "Educación",
-      "description": "Promesas "
+      "description": "Promesas ",
+      "hashtags_list" : ["edu1", "edu2", "edu3"]
     },
     {
       "id": 6,
       "name": "Otros",
-      "description": "Promesas "
+      "description": "Promesas ",
+      "hashtags_list" : ["otr1", "otr2", "otr3"]
     }
   ],
   "candidate": {
     "name": "Posible presidente",
     "photo_url": "https://via.placeholder.com/150?text=face",
     "user_id": "user",
-    "oficial_ids" : ["gobernacion", "partido"],
+    "oficial_ids": [
+                "89030065",
+                "130315077"
+            ],
     "info": "orem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum"
   }
 }

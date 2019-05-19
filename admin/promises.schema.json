@@ -1,119 +1,130 @@
 {
-	"$schema": "http://json-schema.org/draft-04/schema#",
-	"type": "object",
-	"title": "Promesometro",
-	"properties": {
-
-		"candidate": {
-			"type": "object",
-			"title": "Candidate",
-			"properties": {
-				"name": {
-					"type": "string",
-					"title": "Name"
-				},
-				"photo_url": {
-					"type": "string",
-					"title": "Photo Url",
-					"format": "url"
-				},
-				"user_id": {
-					"type": "string",
-					"title": "Twitter ID"
-				},
-				"oficial_ids" : {
-					"type": "array",
-					"title": "Oficial Ids",
-					"format": "table",
-					"uniqueItems": true,
-					"items": {
-						"type": "string",
-						"title": "Id"
-					}
-				},
-				"info": {
-					"type": "string",
-					"title": "Extra Information"
-				}
-			},
-			"required": [
-				"name",
-				"photo_url",
-				"user_id",
-				"info"
-			]
-		},
-		"sectors": {
-			"type": "array",
-			"id": "sectors",
-			"format": "table",
-			"title": "Sectors",
-			"uniqueItems": true,
-			"items": {
-				"type": "object",
-				"title": "Sector",
-				"id": "sector",
-				"$ref": "#/definitions/sector",
-				"properties": {
-					"id": {
-						"type": "integer",
-						"title": "ID"
-					},
-					"name": {
-						"type": "string",
-						"title": "Name"
-					},
-					"description": {
-						"type": "string",
-						"title": "Description"
-					}
-				},
-				"required": [
-					"id",
-					"name",
-					"description"
-				]
-			}
-		},
-		"promises": {
-			"type": "array",
-			"format": "table",
-			"title": "Promises",
-			"uniqueItems": true,
-			"items": {
-				"type": "object",
-				"title": "Promise",
-				"properties": {
-					"id": {
-						"type": "integer",
-						"title": "ID"
-					},
-					"hashtag": {
-						"type": "string",
-						"title": "Hashtag"
-					},
-					"text": {
-						"type": "string",
-						"title": "Description"
-					},
-					"sector_id": {
-						"type": "integer",
-						"title": "Sector ID",
-						"watch": "sectors.sector.id"
-					}
-				},
-				"required": [
-					"id",
-					"hashtag",
-					"text",
-					"sector_id"
-				]
-			}
-		}
-	},
-	"required": [
-		"promises",
-		"sectors",
-		"candidate"
-	]
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "type": "object",
+  "title": "Promesometro",
+  "properties": {
+    "candidate": {
+      "type": "object",
+      "title": "Candidate",
+      "properties": {
+        "name": {
+          "type": "string",
+          "title": "Name"
+        },
+        "photo_url": {
+          "type": "string",
+          "title": "Photo Url",
+          "format": "url"
+        },
+        "user_id": {
+          "type": "string",
+          "title": "Twitter ID"
+        },
+        "oficial_ids": {
+          "type": "array",
+          "title": "Oficial Ids",
+          "format": "table",
+          "uniqueItems": true,
+          "items": {
+            "type": "string",
+            "title": "Id"
+          }
+        },
+        "info": {
+          "type": "string",
+          "title": "Extra Information"
+        }
+      },
+      "required": [
+        "name",
+        "photo_url",
+        "user_id",
+        "info"
+      ]
+    },
+    "sectors": {
+      "type": "array",
+      "id": "sectors",
+      "format": "table",
+      "title": "Sectors",
+      "uniqueItems": true,
+      "items": {
+        "type": "object",
+        "title": "Sector",
+        "id": "sector",
+        "$ref": "#/definitions/sector",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "title": "ID"
+          },
+          "name": {
+            "type": "string",
+            "title": "Name"
+          },
+          "description": {
+            "type": "string",
+            "title": "Description"
+          },
+          "hashtags_list": {
+            "type": "array",
+            "format": "table",
+            "title": "Hashtags List",
+            "uniqueItems": true,
+            "items": {
+              "hashtag": {
+                "type": "string",
+                "title": "Hashtag"
+              }
+            }
+          }
+        },
+        "required": [
+          "id",
+          "name",
+          "description"
+        ]
+      }
+    },
+    "promises": {
+      "type": "array",
+      "format": "table",
+      "title": "Promises",
+      "uniqueItems": true,
+      "items": {
+        "type": "object",
+        "title": "Promise",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "title": "ID"
+          },
+          "hashtag": {
+            "type": "string",
+            "title": "Hashtag"
+          },
+          "text": {
+            "type": "string",
+            "title": "Description"
+          },
+          "sector_id": {
+            "type": "integer",
+            "title": "Sector ID",
+            "watch": "sectors.sector.id"
+          }
+        },
+        "required": [
+          "id",
+          "hashtag",
+          "text",
+          "sector_id"
+        ]
+      }
+    }
+  },
+  "required": [
+    "promises",
+    "sectors",
+    "candidate"
+  ]
 }

@@ -1,242 +1,145 @@
 <!DOCTYPE html>
 <html>
-  <head>
+
+<head>
     <meta charset="utf-8" />
     <title>CSS Integration JSON Editor Example</title>
 
     <!-- Foundation CSS framework (Bootstrap and jQueryUI also supported) -->
-    <link rel='stylesheet' href='//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css'>
+    <link href='//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css' rel='stylesheet'>
     <!-- Font Awesome icons (Bootstrap, Foundation, and jQueryUI also supported) -->
-    <link rel='stylesheet' href='//cdnjs.cloudflare.com/ajax/libs/font-awesome/4.0.3/css/font-awesome.css'>
+    <link href='//cdnjs.cloudflare.com/ajax/libs/font-awesome/4.0.3/css/font-awesome.css' rel='stylesheet'>
 
     <script src="https://cdn.jsdelivr.net/npm/@json-editor/json-editor@latest/dist/jsoneditor.min.js"></script>
-
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
     <script>
-    // Set the default CSS theme and icon library globally
-    JSONEditor.defaults.theme = 'bootstrap4';
-    JSONEditor.defaults.iconlib = 'fontawesome4';
+        // Set the default CSS theme and icon library globally
+        JSONEditor.defaults.theme = 'bootstrap4';
+        JSONEditor.defaults.iconlib = 'fontawesome4';
+        var SETTINGS_URL = 'https://9mtn9bajdj.execute-api.us-east-2.amazonaws.com/dev/settings'
     </script>
-  </head>
-  <body>
-  <div class="container-fluid">
-    <div class='row justify-content-md-center'>
-      <div class='col'>
-        <h1>Admin Promesometro</h1>
-      </div>
+    <style>
+        .bg-light {
+            background-color: #ffffff !important;
+        }
+
+        .card-body {
+            padding: 1.25rem 0;
+            border-radius: 0;
+            border-left: 0;
+            border-right: 0;
+        }
+
+        table {
+            border: 0 !important;
+        }
+
+        .table-sm td,
+        .table-sm th {
+            border-right: 0;
+            border-left: 0;
+        }
+
+        .table-bordered td,
+        .table-bordered th {
+            border-right: 0;
+            border-left: 0;
+        }
+
+        .form-control {
+            width: 100% !important;
+            height: 38px !important;
+            margin-left: 0 !important;
+            margin-bottom: 5px !important;
+        }
+
+        .btn-secondary {
+            background: linear-gradient(to top, #562aad 0%, #7140cf 100%) !important;
+            border-color: #412082;
+        }
+
+        #submit {
+            background: #0e1350;
+    color: #fff;
+    height: 42px;
+    padding: 0 15px;
+    width: 100%;
+    margin-bottom: 20px;
+    border-radius: 5px;
+    border: 1px solid #070c45;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <div class='row justify-content-md-center'>
+            <div class='col'>
+                <h1>Admin Promesometro</h1>
+            </div>
+        </div>
     </div>
-    <div class='row justify-content-md-center'>
-      <div class='col'>
-        <button id='submit' class='tiny'>Submit (console.log)</button>
-        <button id='restore' class='secondary tiny'>Restore to Default</button>
-        <span id='valid_indicator' class='label'></span>
-      </div>
+    <div class="container">
+        <div class='row justify-content-md-center'>
+            <div class='col'>
+                <button class='tiny' id='submit'>Submit (console.log)</button>
+            </div>
+        </div>
     </div>
-    <div class='row justify-content-md-center'>
-      <div id='editor_holder' class='col'></div>
+    <div class="container">
+        <div class='row justify-content-md-center'>
+            <div class='col' id='editor_holder'></div>
+        </div>
     </div>
-</div>
     <script>
-      // This is the starting value for the editor
-      // We will use this to seed the initial editor
-      // and to provide a "Restore to Default" button.
-      var starting_value =
-          {
-  "promises": [
-    {
-      "id": 1,
-      "hashtag": "eco1",
-      "text": "Promesa 1",
-      "sector_id": 1
-    },
-    {
-      "id": 2,
-      "hashtag": "eco2",
-      "text": "Promesa 2",
-      "sector_id": 1
-    },
-    {
-      "id": 3,
-      "hashtag": "eco3",
-      "text": "Promesa 3",
-      "sector_id": 1
-    },
-    {
-      "id": 4,
-      "hashtag": "seg1",
-      "text": "Promesa 4",
-      "sector_id": 2
-    },
-    {
-      "id": 5,
-      "hashtag": "seg2",
-      "text": "Promesa 5",
-      "sector_id": 2
-    },
-    {
-      "id": 6,
-      "hashtag": "seg3",
-      "text": "Promesa 6",
-      "sector_id": 2
-    },
-    {
-      "id": 7,
-      "hashtag": "cor1",
-      "text": "Promesa 7",
-      "sector_id": 3
-    },
-    {
-      "id": 8,
-      "hashtag": "cor2",
-      "text": "Promesa 8",
-      "sector_id": 3
-    },
-    {
-      "id": 9,
-      "hashtag": "cor3",
-      "text": "Promesa 9",
-      "sector_id": 3
-    },
-    {
-      "id": 10,
-      "hashtag": "sal1",
-      "text": "Promesa 10",
-      "sector_id": 4
-    },
-    {
-      "id": 11,
-      "hashtag": "sal2",
-      "text": "Promesa 11",
-      "sector_id": 4
-    },
-    {
-      "id": 12,
-      "hashtag": "sal3",
-      "text": "Promesa 12",
-      "sector_id": 4
-    },
-    {
-      "id": 13,
-      "hashtag": "edu1",
-      "text": "Promesa 13",
-      "sector_id": 5
-    },
-    {
-      "id": 14,
-      "hashtag": "edu2",
-      "text": "Promesa 14",
-      "sector_id": 5
-    },
-    {
-      "id": 15,
-      "hashtag": "edu3",
-      "text": "Promesa 15",
-      "sector_id": 5
-    },
-    {
-      "id": 16,
-      "hashtag": "otr1",
-      "text": "Promesa 16",
-      "sector_id": 6
-    },
-    {
-      "id": 17,
-      "hashtag": "otr2",
-      "text": "Promesa 17",
-      "sector_id": 6
-    },
-    {
-      "id": 18,
-      "hashtag": "otr3",
-      "text": "Promesa 18",
-      "sector_id": 6
-    }
-  ],
-  "sectors": [
-    {
-      "id": 1,
-      "name": "Economía",
-      "description": "Promesas "
-    },
-    {
-      "id": 2,
-      "name": "Seguridad",
-      "description": "Promesas "
-    },
-    {
-      "id": 3,
-      "name": "Anti Corrupción",
-      "description": "Promesas "
-    },
-    {
-      "id": 4,
-      "name": "Salud",
-      "description": "Promesas "
-    },
-    {
-      "id": 5,
-      "name": "Educación",
-      "description": "Promesas "
-    },
-    {
-      "id": 6,
-      "name": "Otros",
-      "description": "Promesas "
-    }
-  ],
-  "candidate": {
-    "name": "Posible presidente",
-    "photo_url": "https://via.placeholder.com/150?text=face",
-    "user_id": "user",
-    "oficial_ids" : ["gobernacion", "partido"],
-    "info": "orem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum"
-  }
-}
+        var initEditor = function (starting_value) {
+            // Initialize the editor
+            var editor = new JSONEditor(document.getElementById('editor_holder'), {
+                // Enable fetching schemas via ajax
+                ajax: true,
 
-      // Initialize the editor
-      var editor = new JSONEditor(document.getElementById('editor_holder'),{
-        // Enable fetching schemas via ajax
-        ajax: true,
+                // The schema for the editor
+                schema: {
+                    $ref: "promises.schema.json",
+                    format: "grid"
+                },
 
-        // The schema for the editor
-        schema: {
-          $ref: "promises.schema.json",
-          format: "grid"
-        },
+                // Seed the form with a starting value
+                startval: starting_value
+            });
 
-        // Seed the form with a starting value
-        startval: starting_value
-      });
+            // Hook up the submit button to log to the console
+            document.getElementById('submit').addEventListener('click', function () {
+                // Get the value from the edito
+                $.ajax({
+                    type: "POST",
+                    data: JSON.stringify(editor.getValue()),
+                    url: SETTINGS_URL,
+                    contentType: "application/json",
+                    dataType: 'json'
+                })
+                    .done(response => {
+                        console.log(response)
+                        alert('Cambios Realizados')
+                    });
+            });
 
-      // Hook up the submit button to log to the console
-      document.getElementById('submit').addEventListener('click',function() {
-        // Get the value from the editor
-        console.log(editor.getValue());
-      });
 
-      // Hook up the Restore to Default button
-      document.getElementById('restore').addEventListener('click',function() {
-        editor.setValue(starting_value);
-      });
+            // Hook up the validation indicator to update its
+            // status whenever the editor changes
+            editor.on('change', function () {
+                // Get an array of errors from the validator
+                var errors = editor.validate();
 
-      // Hook up the validation indicator to update its
-      // status whenever the editor changes
-      editor.on('change',function() {
-        // Get an array of errors from the validator
-        var errors = editor.validate();
-
-        var indicator = document.getElementById('valid_indicator');
-
-        // Not valid
-        if(errors.length) {
-          indicator.className = 'label alert';
-          indicator.textContent = 'not valid';
+            });
         }
-        // Valid
-        else {
-          indicator.className = 'label success';
-          indicator.textContent = 'valid';
-        }
-      });
+
+        $.getJSON(SETTINGS_URL)
+            .done(response => {
+                initEditor(response.data)
+            })
+
     </script>
-  </body>
+</body>
+
 </html>

@@ -9,7 +9,7 @@ class DashboardView {
         $("#sectors").append(`
             <div class="row">
                 <div class="col-12">
-                    <div class="card card_metric mb-3">
+                    <a href="promises.html" class="card card_metric mb-3">
                         <div class="card-body">
                         <h6 class="card-title">
                             `+ sector.name + `
@@ -29,7 +29,7 @@ class DashboardView {
                             <span class="typcn typcn-arrow-up-thick metric-positive"></span>
                         </div>
                         </div>
-                    </div>
+                    </a>
                 </div>
             </div>`);
     }

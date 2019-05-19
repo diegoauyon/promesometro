@@ -1,0 +1,22 @@
+.promise {
+
+    &:nth-child(odd) {
+        .media__btn {
+            order: 0;
+            margin-left: 16px;
+            margin-right: 0;
+        }
+    }
+
+    &:nth-child(even) {
+        .media__btn {
+            order: -1;
+            margin-left: 0;
+            margin-right: 16px;
+        }
+    }
+
+    &__auth {
+        margin-top: 8px;
+    }
+}

@@ -81,6 +81,40 @@ const config = {
         new HtmlWebpackPlugin({
             title: 'modern-webpack-starter',
             template: path.resolve(__dirname, 'src', 'index.html'),
+            filename: 'index.html',
+            inject: true,
+            minify: (env === 'development') ? undefined : {
+                removeComments: true,
+                collapseWhitespace: true,
+                removeAttributeQuotes: true,
+            }
+        }),
+        new HtmlWebpackPlugin({
+            title: 'modern-webpack-starter',
+            template: path.resolve(__dirname, 'src', 'promises.html'),
+            filename: 'promises.html',
+            inject: true,
+            minify: (env === 'development') ? undefined : {
+                removeComments: true,
+                collapseWhitespace: true,
+                removeAttributeQuotes: true,
+            }
+        }),
+        new HtmlWebpackPlugin({
+            title: 'modern-webpack-starter',
+            template: path.resolve(__dirname, 'src', 'tweets.html'),
+            filename: 'tweets.html',
+            inject: true,
+            minify: (env === 'development') ? undefined : {
+                removeComments: true,
+                collapseWhitespace: true,
+                removeAttributeQuotes: true,
+            }
+        }),
+        new HtmlWebpackPlugin({
+            title: 'modern-webpack-starter',
+            template: path.resolve(__dirname, 'src', 'insights.html'),
+            filename: 'insights.html',
             inject: true,
             minify: (env === 'development') ? undefined : {
                 removeComments: true,
@@ -102,7 +136,9 @@ const config = {
             '@': path.resolve(__dirname, 'src')
         }
     },
-
+    externals: {
+        moment: 'moment'
+    }
 };
 
 module.exports = config;
