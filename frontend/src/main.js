@@ -14,3 +14,6 @@ import '../src/scripts/dashboard'
 import '../src/scripts/dashboard-view'
 
 import '../src/scripts/chart.data';
+
+
+import '../src/scripts/promises'

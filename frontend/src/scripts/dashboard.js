@@ -1,6 +1,7 @@
 import * as $ from 'jquery'
-import { settings } from './settings'
 import { dashboardView } from './dashboard-view'
+import {getSettings} from './utils'
+import {instanciateSocket} from './websocket'
 
 
 const settingsUrl = "https://9mtn9bajdj.execute-api.us-east-2.amazonaws.com/dev/settings"
@@ -8,11 +9,11 @@ const promiseUrl = (id) => `https://9mtn9bajdj.execute-api.us-east-2.amazonaws.c
 const sectorUrl = (id) => `https://9mtn9bajdj.execute-api.us-east-2.amazonaws.com/dev/sector/${id}`
 
 class Dashboard {
-    constructor() {
+    constructor(settings) {
         this.sectorsMap = {};
         this.sectorDataMap = {};
-        this.sectors = [...settings.data.sectors];
-        this.promises = [...settings.data.promises];
+        this.sectors = [...settings.sectors];
+        this.promises = [...settings.promises];
         this.init();
     }
     init () {
@@ -50,4 +51,18 @@ class Dashboard {
     }
 }
 
-export const dashboard = new Dashboard();
+
+$(document).ready(()=> {
+    getSettings( settings => {
+        const dashboard = new Dashboard(settings)
+        const ws = instanciateSocket({
+            settings,
+            onOpen: () =>{},
+            onClose: ()=>{},
+            onError: ()=> {},
+            onMessage: (event)=> {
+                 dashboard.updateEducationScore(event.data);
+            }
+        })
+    })
+})

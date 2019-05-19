@@ -1,7 +1,6 @@
 // JQuery
 import * as $ from 'jquery'
 // Import initial page logic
-import { dashboard } from './dashboard'
 
 class DashboardView {
     constructor(){}
@@ -9,7 +8,7 @@ class DashboardView {
         $("#sectors").append(`
             <div class="row">
                 <div class="col-12">
-                    <a href="promises.html" class="card card_metric mb-3">
+                    <a href="promises.html?sectorId=` + sector.id + `" class="card card_metric mb-3">
                         <div class="card-body">
                         <h6 class="card-title">
                             `+ sector.name + `

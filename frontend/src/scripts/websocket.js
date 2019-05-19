@@ -1,9 +1,22 @@
-var wsUri = "wss://kdx5uu8x2k.execute-api.us-east-2.amazonaws.com/dev";
-var output;
+const wsUri = "wss://kdx5uu8x2k.execute-api.us-east-2.amazonaws.com/dev";
 
-import { dashboard } from '../scripts/dashboard'
 
-let websocket;
+class WebSocketObject {
+    constructor({settings, onOpen, onClose, onMessage, onError}) {
+        this.settings = settings
+        this.websocket= new WebSocket(wsUri)
+        this.websocket.onopen = onOpen
+        this.websocket.onclose = onClose
+        this.websocket.onmessage = onMessage
+        this.websocket.onerror = onError
+    }
+}
+
+export const instanciateSocket = (options) => {
+    return new WebSocketObject(options)
+}
+
+/*let websocket;
 
 function init() {
     output = document.getElementById("output");
@@ -12,18 +25,7 @@ function init() {
 
 function testWebSocket() {
     websocket = new WebSocket(wsUri);
-    websocket.onopen = function (evt) {
-        onOpen(evt)
-    };
-    websocket.onclose = function (evt) {
-        onClose(evt)
-    };
-    websocket.onmessage = function (evt) {
-        onMessage(evt)
-    };
-    websocket.onerror = function (evt) {
-        onError(evt)
-    };
+
 }
 
 function onOpen(evt) {
@@ -42,13 +44,5 @@ function onError(evt) {
 
 function doSend(message) {
     websocket.send(message);
-}
+}*/
 
-function writeToScreen(message) {
-    var pre = document.createElement("p");
-    pre.style.wordWrap = "break-word";
-    pre.innerHTML = message;
-    //output.appendChild(pre);
-}
-
-window.addEventListener("load", init, false);
