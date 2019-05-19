@@ -20,6 +20,13 @@ export const getSectorInformation = function({callback, sectorId}) {
             })
 }
 
+export const getPromiseInformation = function({callback, promiseHashtag}) {
+    return $.getJSON(`${PROMISE_URL}${promiseHashtag}`)
+            .done(response => {
+                callback(response.data)
+            })
+}
+
 
 export const getSectorPromises = function ({settings, sectorId}) {
     const promises = settings.promises.filter( info => { return info.sector_id == sectorId})

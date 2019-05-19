@@ -17,7 +17,7 @@ const promiseTemplate = ({settingsPromiseInfo}) => {
     <div class="media align-items-center mb-4 promise">
             <div class="media-body promise">
               <div class="promise__cite font-italic">
-                <a class="d-block"  target="_blank" href="${buildTwitterUrl({promiseInfo: settingsPromiseInfo, sectorInfo: sectorInformation})}">"${settingsPromiseInfo.text}"</a>
+                <a class="d-block"  href="insights.html?promiseHashtag=${settingsPromiseInfo.hashtag}">"${settingsPromiseInfo.text}"</a>
                 <span class="float-right small promise__auth">
                   ~ ${settings.candidate.name}
                 </span>
@@ -30,7 +30,8 @@ const promiseTemplate = ({settingsPromiseInfo}) => {
     `
 }
 
-
+// target="_blank" href="${buildTwitterUrl({promiseInfo: settingsPromiseInfo, sectorInfo: sectorInformation})}">"${settingsPromiseInfo.text}"</a>
+//
 
 const buildPage = function() {
     const titleSpan = $('#title-id')

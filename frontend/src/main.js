@@ -17,3 +17,4 @@ import '../src/scripts/chart.data';
 
 
 import '../src/scripts/promises'
+import '../src/scripts/insights'
