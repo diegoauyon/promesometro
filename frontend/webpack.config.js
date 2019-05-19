@@ -136,7 +136,9 @@ const config = {
             '@': path.resolve(__dirname, 'src')
         }
     },
-
+    externals: {
+        moment: 'moment'
+    }
 };
 
 module.exports = config;
