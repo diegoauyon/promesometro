@@ -1,0 +1,12 @@
+main {
+    padding-top: 65px;
+    padding-bottom: 30px;
+
+    &.front {
+        padding-top: 125px;
+    }
+
+    &.promises-stream {
+        padding-bottom: 120px;
+    }
+}
