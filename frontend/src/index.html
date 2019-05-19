@@ -12,7 +12,7 @@
      <meta name="robots" content="index,follow">
 
      <link rel="shortcut icon" href="./favicon.png">
-     <title>modern-webpack-starter</title>
+     <title>Promisometro</title>
 
      <meta name="twitter:card" content="summary_large_image">
      <meta name="twitter:site" content="">
@@ -43,7 +43,7 @@
       <nav class="navbar fixed-top">
         <div class="mr-auto">
           <button
-            class="header__btn header__btn_pres"
+            class="header__btn"
             type="button"
             data-toggle="collapse"
             data-target="#collapsiblePromises"
@@ -69,105 +69,48 @@
         </button>
       </div>
     </header>
-    <main>
+    <main class="front">
       <div class="collapse" id="collapsiblePromises">
         <div class="container">
           <div class="row justify-content-center">
             <div class="col-10">
-              <div class="promise py-3">
-                  <div class="promise__cite font-italic"
-                  ><a href="#">"Hasta 50% menos en tu factura de luz"</a></div
-                  >
-              </div>
-            </div>
-            <div class="col-10">
-              <div class="promise py-3">
-                <div class="promise__cite font-italic"
-                  ><a href="#">"Voy a construir la primera via del tren, de Guatemala hasta
-                  el puerto y se va a hacer en los primeros 3 años de
-                  gobierno."</a></div>
-              </div>
+
+                <div class="media align-items-center mb-4 promise">
+                  <div class="media-body promise">
+                    <div class="promise__cite font-italic">
+                      <a class="d-block" href="#">"Voy a construir la primera via del
+                        tren, de Guatemala hasta el puerto y se va a hacer en los primeros 3 años de
+                        gobierno."</a>
+                      <span class="float-right small promise__auth">
+                        ~ Politic Name
+                      </span>
+                    </div>
+                  </div>
+                  <button class="media__btn" type="submit">
+                    <span class="typcn typcn-times"></span>
+                  </button>
+                </div>
+
+                <div class="media align-items-center mb-4 promise">
+                  <div class="media-body promise">
+                    <div class="promise__cite font-italic">
+                      <a class="d-block" href="#">"Voy a construir la primera via del
+                        tren, de Guatemala hasta el puerto y se va a hacer en los primeros 3 años de
+                        gobierno."</a>
+                      <span class="float-right small promise__auth">
+                        ~ Politic Name
+                      </span>
+                    </div>
+                  </div>
+                  <button class="media__btn" type="submit">
+                    <span class="typcn typcn-times"></span>
+                  </button>
+                </div>
             </div>
           </div>
         </div>
       </div>
-      <div class="container py-4">
-        <div class="row">
-          <div class="col-12">
-            <div class="card card_metric mb-3">
-              <div class="card-body">
-                <h6 class="card-title">
-                  Educacion
-                  <span class="float-right small text-muted">1,293 <span class="typcn typcn-social-twitter"></span></span>
-                </h6>
-                <div class="metric">
-                  <span class="typcn typcn-arrow-down-thick metric-negative"></span>
-                  <div class="metric__graph">
-                      <span id="education-avg-score" class="typcn typcn-location metric__location" style="left: 0%;"></span>
-                    </div>
-                  <span class="typcn typcn-arrow-up-thick metric-positive"></span>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="row">
-          <div class="col-12">
-            <div class="card card_metric mb-3">
-              <div class="card-body">
-                <h6 class="card-title">
-                  Seguridad
-                  <span class="float-right small text-muted">1,293 <span class="typcn typcn-social-twitter"></span></span>
-                </h6>
-                <div class="metric">
-                  <span class="typcn typcn-arrow-down-thick metric-negative"></span>
-                  <div class="metric__graph">
-                      <span class="typcn typcn-location metric__location" style="left: 37%;"></span>
-                    </div>
-                  <span class="typcn typcn-arrow-up-thick metric-positive"></span>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="row">
-          <div class="col-12">
-            <div class="card card_metric mb-3">
-              <div class="card-body">
-                <h6 class="card-title">
-                  Medio Ambiente
-                  <span class="float-right small text-muted">1,293 <span class="typcn typcn-social-twitter"></span></span>
-                </h6>
-                <div class="metric">
-                  <span class="typcn typcn-arrow-down-thick metric-negative"></span>
-                  <div class="metric__graph">
-                      <span class="typcn typcn-location metric__location" style="left: 70%;"></span>
-                    </div>
-                  <span class="typcn typcn-arrow-up-thick metric-positive"></span>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="row">
-          <div class="col-12">
-            <div class="card card_metric mb-3">
-              <div class="card-body">
-                <h6 class="card-title">
-                  Vivienda
-                  <span class="float-right small text-muted">1,293 <span class="typcn typcn-social-twitter"></span></span>
-                </h6>
-                <div class="metric">
-                  <span class="typcn typcn-arrow-down-thick metric-negative"></span>
-                  <div class="metric__graph">
-                      <span class="typcn typcn-location metric__location" style="left: 20%;"></span>
-                    </div>
-                  <span class="typcn typcn-arrow-up-thick metric-positive"></span>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
+      <div id="sectors" class="container py-4">
       </div>
     </main>
     <div id="output"></div>
