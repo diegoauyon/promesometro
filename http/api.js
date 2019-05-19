@@ -281,6 +281,10 @@ module.exports.retrieveSettings = async (event, context, callback) => {
             console.log(scanResult);
             return callback(null, {
                 statusCode: 200,
+                headers: {
+                    'Content-Type': 'application/json',
+                    "Access-Control-Allow-Origin": "*"
+                },
                 body: JSON.stringify({
                     data: scanResult
                 })
@@ -294,10 +298,16 @@ module.exports.retrieveSettings = async (event, context, callback) => {
 
 
 module.exports.submitSettings = (event, context, callback) => {
-    const requestBody = JSON.parse(event.body);
-
-    if (!requestBody) {
+    if (!event.body) {
         callback(new Exception("Empty body in the request"));
+    }
+
+    let requestBody;
+
+    try {
+        requestBody = JSON.parse(event.body);
+    } catch (e) {
+        requestBody = event.body;
     }
 
     const settingsInfo = {
@@ -312,6 +322,10 @@ module.exports.submitSettings = (event, context, callback) => {
             console.log(response)
             return callback(null, {
                 statusCode: 200,
+                headers: {
+                    'Content-Type': 'application/json',
+                    "Access-Control-Allow-Origin": "*"
+                },
                 body: JSON.stringify({
                     message: `Sucessfully updated settings`,
                     data: response
@@ -332,31 +346,6 @@ module.exports.submitSettings = (event, context, callback) => {
 };
 
 
-/*module.exports.retrieveSectorInfo = async (event, context, callback) => {
-    console.log('SectorInfo', event, context);
-
-    if (!event.pathParameters) {
-        callback(new Exception("No parameters in the request"));
-        return
-    }
-
-    return getSectorInformation(event.pathParameters.id)
-        .then(data => {
-            console.log(data);
-            return callback(null, {
-                statusCode: 200,
-                body: JSON.stringify({
-                    data: data
-                })
-            });
-        })
-        .catch(err => {
-            console.log('Error:', JSON.stringify(err, null, 2));
-            return callback(err);
-        });
-};*/
-
-
 // ----------------------------------------------------------------------------
 
 module.exports.retrievePromiseTweets = async (event, context, callback) => {
@@ -372,6 +361,10 @@ module.exports.retrievePromiseTweets = async (event, context, callback) => {
             console.log(data);
             return callback(null, {
                 statusCode: 200,
+                headers: {
+                    'Content-Type': 'application/json',
+                    "Access-Control-Allow-Origin": "*"
+                },
                 body: JSON.stringify({
                     data: data
                 })
@@ -397,6 +390,10 @@ module.exports.retrieveSectorTweets = async (event, context, callback) => {
             console.log(data);
             return callback(null, {
                 statusCode: 200,
+                headers: {
+                    'Content-Type': 'application/json',
+                    "Access-Control-Allow-Origin": "*"
+                },
                 body: JSON.stringify({
                     data: data
                 })
