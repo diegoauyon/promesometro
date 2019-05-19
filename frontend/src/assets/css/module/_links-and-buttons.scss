@@ -13,8 +13,9 @@ button {
 }
 
 .promise__cite {
+    position: relative;
+
     a {
-        position: relative;
     
         &:link,
         &:active,
@@ -36,8 +37,8 @@ button {
         bottom: -5px;
         right: 0;
         width: 50%;
-        height: 1px;
-        background: #000;
+        height: 2px;
+        background: $c-brand-2;
         transition: all 1s cubic-bezier(.17,.67,.83,.67);
     }
 

@@ -91,8 +91,30 @@ const config = {
         }),
         new HtmlWebpackPlugin({
             title: 'modern-webpack-starter',
-            template: path.resolve(__dirname, 'src', 'sector-promises.html'),
-            filename: 'sector-promises.html',
+            template: path.resolve(__dirname, 'src', 'promises.html'),
+            filename: 'promises.html',
+            inject: true,
+            minify: (env === 'development') ? undefined : {
+                removeComments: true,
+                collapseWhitespace: true,
+                removeAttributeQuotes: true,
+            }
+        }),
+        new HtmlWebpackPlugin({
+            title: 'modern-webpack-starter',
+            template: path.resolve(__dirname, 'src', 'tweets.html'),
+            filename: 'tweets.html',
+            inject: true,
+            minify: (env === 'development') ? undefined : {
+                removeComments: true,
+                collapseWhitespace: true,
+                removeAttributeQuotes: true,
+            }
+        }),
+        new HtmlWebpackPlugin({
+            title: 'modern-webpack-starter',
+            template: path.resolve(__dirname, 'src', 'insights.html'),
+            filename: 'insights.html',
             inject: true,
             minify: (env === 'development') ? undefined : {
                 removeComments: true,

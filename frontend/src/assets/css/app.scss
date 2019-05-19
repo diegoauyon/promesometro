@@ -2,9 +2,10 @@
 @import "vendors/typicons/typicons";
 
 @import "base/variables";
-
 @import "base/default";
 @import "base/typography";
+
+@import "layout/main";
 
 @import "module/header";
 @import "module/promises";
