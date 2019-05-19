@@ -5,13 +5,13 @@ from src.kinesis.kinesis_stream_listener import KinesisStreamListener
 
 class KinesisStreamProducer():
 
-    def __init__(self, credentials):
+    def __init__(self, credentials, promise_ids):
 
         self.consumer_key = credentials['APP_KEY']
         self.consumer_secret = credentials['APP_SECRET']
         self.access_token = credentials['ACCESS_TOKEN']
         self.access_token_secret = credentials['ACCESS_TOKEN_SECRET']
-        self.kinesis_stream_listener = KinesisStreamListener()
+        self.kinesis_stream_listener = KinesisStreamListener(promise_ids)
         auth = OAuthHandler(self.consumer_key, self.consumer_secret)
         auth.set_access_token(self.access_token, self.access_token_secret)
         self.stream = Stream(auth, self.kinesis_stream_listener)
