@@ -9,3 +9,5 @@ import '../src/scripts/websocket'
 
 // Import initial page logic
 import '../src/scripts/dashboard'
+
+import '../src/scripts/chart.data';

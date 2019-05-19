@@ -1,29 +1,45 @@
-.header {
+.header {    
+    position: fixed;
+    width: 100%;
+    z-index: 1029;
+    border-bottom-left-radius: 30px;
+    border-bottom-right-radius: 30px;
+    padding-top: 65px;  
+    
     &_front {
         background: $gradient,
         url(../images/Vector.svg);
-        padding-top: 65px;
-        border-bottom: 1px solid #657596;    
-        border-bottom-left-radius: 30px;
-        border-bottom-right-radius: 30px;
+    }
+
+    &__title {
+        display: flex;
+        flex-flow: column nowrap;
+        justify-content: center;
+        align-items: center;
+        line-height: 1;
+    }
+
+    &__sub {
+        font-size: 70%;
+        font-weight: 300;
     }
 
     &__btn {
-        background: none;
-        border: none;
-        outline: none;
-        padding: 0;
-        outline: none;
+        -webkit-appearance: none;
         color: $c-brand-1-contrast;
 
-        &_pres {
-            width: 20px;
-            height: 20px;
+        &:hover {
+            color: $c-brand-1-contrast;
+            text-decoration: none;
+
+            span {
+                background: darken($c-brand-1, 15%);
+            }
         }
 
         span {
             font-size: 24px;
-        background: #562aad;
+            background: darken($c-brand-1, 5%);
             padding-top: 3px;
             width: 42px;
             height: 42px;

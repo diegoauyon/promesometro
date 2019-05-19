@@ -52,7 +52,7 @@ function writeToScreen(message) {
     var pre = document.createElement("p");
     pre.style.wordWrap = "break-word";
     pre.innerHTML = message;
-    output.appendChild(pre);
+    //output.appendChild(pre);
 }
 
 window.addEventListener("load", init, false);
