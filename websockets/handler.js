@@ -101,21 +101,20 @@ const updateConnections = (event, connectionId) => {
     });
 
     let dynamodbRecords = [];
-    if (event.Records.length) {
-        dynamodbRecords = event.Records.map(record => {
-            return {
-                connectionId: record.dynamodb.NewImage.connectionId.S
-            }
-        })
-    }
+    // if (event.Records.length) {
+    //     dynamodbRecords = event.Records.map(record => {
+    //         return {
+    //             connectionId: record.dynamodb.NewImage.connectionId.S
+    //         }
+    //     })
+    // }
 
     const params = {
         ConnectionId: connectionId,
         Data: JSON.stringify(dynamodbRecords)
     };
 
-    console.log('incoming dynamodb records', 
-        JSON.stringify(event.Records));
+    console.log('incoming dynamodb records', JSON.stringify(event.Records));
 
     return apigwManagementApi.postToConnection(params).promise();
 };
