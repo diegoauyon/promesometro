@@ -16,33 +16,3 @@ export const instanciateSocket = (options) => {
     return new WebSocketObject(options)
 }
 
-/*let websocket;
-
-function init() {
-    output = document.getElementById("output");
-    testWebSocket();
-}
-
-function testWebSocket() {
-    websocket = new WebSocket(wsUri);
-
-}
-
-function onOpen(evt) {
-}
-
-function onClose(evt) {
-}
-
-function onMessage(evt) {
-    dashboard.updateEducationScore(evt.data);
-}
-
-function onError(evt) {
-    
-}
-
-function doSend(message) {
-    websocket.send(message);
-}*/
-

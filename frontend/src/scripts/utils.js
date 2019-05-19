@@ -22,12 +22,12 @@ export const getSectorInformation = function({callback, sectorId}) {
 
 
 export const getSectorPromises = function ({settings, sectorId}) {
-    const promises = settings.promises.filter( info => { info.sector_id="" == sectorId})
+    const promises = settings.promises.filter( info => { return info.sector_id == sectorId})
     return promises
 }
 
 export const buildTwitterUrl = function({promiseInfo, sectorInfo}) {
-    return `http://twitter.com/share?text=Opiniomentro&hashtags=${sectorInfo.name},${promiseInfo.hashtag}`
+    return `http://twitter.com/share?url=promesometroGT&text=Opiniomentro&hashtags=${sectorInfo.name.replace(' ', '-')},${promiseInfo.hashtag}`
 }
 
 

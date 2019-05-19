@@ -1,7 +1,13 @@
 import * as $ from 'jquery'
 
 
-import {parseURLParams, getSettings, getSectorInformation, getSectorPromises} from './utils'
+import {
+  parseURLParams, 
+  getSettings, 
+  getSectorInformation, 
+  getSectorPromises,
+  buildTwitterUrl
+} from './utils'
 
 var paramsInfo, settings, sectorInformation, sectorId
 
@@ -29,14 +35,15 @@ const promiseTemplate = ({settingsPromiseInfo}) => {
 const buildPage = function() {
     const titleSpan = $('#title-id')
     const titleHeader = $('#header-title')
+    const promisesLegend = $('#promises-legend')
     const promisesContainer = $('#promises-container')
 
     promisesContainer.empty()
 
-    const sectorPromises = getSectorPromises({settings, sectorId: sectorId})
-
+    const sectorPromises = (sectorId === -1)? settings.promises : getSectorPromises({settings, sectorId: sectorId})
     titleSpan.text(sectorInformation.name)
-    titleHeader.text(sectorInformation.description)
+    titleHeader.text('Promesas')
+    promisesLegend.text(sectorInformation.name)
 
     sectorPromises.forEach( promiseInfo => {
         promisesContainer.append(promiseTemplate({settingsPromiseInfo: promiseInfo}))
@@ -49,8 +56,8 @@ const checkUrl = function() {
     const params = parseURLParams(window.location.href)
 
 
-    if (window.location.pathname.includes('promise') &&params && params.sectorId) {
-        sectorId = params.sectorId[0]
+    if (window.location.pathname.includes('promise') ) {
+        sectorId = (params && params.sectorId) ?params.sectorId[0] : -1
         getSettings( settingsInfo => {
             paramsInfo = params
             settings = settingsInfo
@@ -59,7 +66,7 @@ const checkUrl = function() {
                     sectorInformation = sectorData
                     buildPage()
                 },
-                sectorId: sectorId
+                sectorId: (sectorId === -1)? 1 : sectorId
             })
         })
 
