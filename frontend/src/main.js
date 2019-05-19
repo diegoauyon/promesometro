@@ -3,3 +3,5 @@ import '@/assets/css/app.scss'
 
 // Import bootstrap js
 import 'bootstrap/dist/js/bootstrap.bundle.min'
+
+import '../src/scripts/chart.data';
