@@ -1,5 +1,11 @@
 a,
 button {
+    background: none;
+    border: none;
+    outline: none;
+    padding: 0;
+    outline: none;
+
     cursor: pointer;
     &:focus {
         outline: none;
@@ -38,6 +44,26 @@ button {
     &:hover {
         &::after {
             width: 100%;
+        }
+    }
+}
+
+.media__btn{
+    span {
+        font-size: 24px;
+        background: $c-card;
+        padding-top: 3px;
+        width: 42px;
+        height: 42px;
+        border-radius: 50%;
+        display: flex;
+        justify-content: center;
+    }
+
+    &:hover {
+        span {
+            background: $c-brand-2;
+            color: #fff;
         }
     }
 }
