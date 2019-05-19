@@ -1,7 +1,8 @@
 <!DOCTYPE html>
 <html>
+
 <head>
-    <meta charset="utf-8"/>
+    <meta charset="utf-8" />
     <title>CSS Integration JSON Editor Example</title>
 
     <!-- Foundation CSS framework (Bootstrap and jQueryUI also supported) -->
@@ -17,75 +18,128 @@
         JSONEditor.defaults.iconlib = 'fontawesome4';
         var SETTINGS_URL = 'https://9mtn9bajdj.execute-api.us-east-2.amazonaws.com/dev/settings'
     </script>
+    <style>
+        .bg-light {
+            background-color: #ffffff !important;
+        }
+
+        .card-body {
+            padding: 1.25rem 0;
+            border-radius: 0;
+            border-left: 0;
+            border-right: 0;
+        }
+
+        table {
+            border: 0 !important;
+        }
+
+        .table-sm td,
+        .table-sm th {
+            border-right: 0;
+            border-left: 0;
+        }
+
+        .table-bordered td,
+        .table-bordered th {
+            border-right: 0;
+            border-left: 0;
+        }
+
+        .form-control {
+            width: 100% !important;
+            height: 38px !important;
+            margin-left: 0 !important;
+            margin-bottom: 5px !important;
+        }
+
+        .btn-secondary {
+            background: linear-gradient(to top, #562aad 0%, #7140cf 100%) !important;
+            border-color: #412082;
+        }
+
+        #submit {
+            background: #0e1350;
+    color: #fff;
+    height: 42px;
+    padding: 0 15px;
+    width: 100%;
+    margin-bottom: 20px;
+    border-radius: 5px;
+    border: 1px solid #070c45;
+        }
+    </style>
 </head>
+
 <body>
-<div class="container">
-    <div class='row justify-content-md-center'>
-        <div class='col'>
-            <h1>Admin Promesometro</h1>
+    <div class="container">
+        <div class='row justify-content-md-center'>
+            <div class='col'>
+                <h1>Admin Promesometro</h1>
+            </div>
         </div>
     </div>
-</div>
-<div class="container">
-    <div class='row justify-content-md-center'>
-        <div class='col'>
-            <button class='tiny' id='submit'>Submit (console.log)</button>
+    <div class="container">
+        <div class='row justify-content-md-center'>
+            <div class='col'>
+                <button class='tiny' id='submit'>Submit (console.log)</button>
+            </div>
         </div>
     </div>
-</div>
-<div class="container">
-    <div class='row justify-content-md-center'>
-        <div class='col' id='editor_holder'></div>
+    <div class="container">
+        <div class='row justify-content-md-center'>
+            <div class='col' id='editor_holder'></div>
+        </div>
     </div>
-</div>
-<script>
-    var initEditor = function (starting_value) {
-        // Initialize the editor
-        var editor = new JSONEditor(document.getElementById('editor_holder'), {
-            // Enable fetching schemas via ajax
-            ajax: true,
+    <script>
+        var initEditor = function (starting_value) {
+            // Initialize the editor
+            var editor = new JSONEditor(document.getElementById('editor_holder'), {
+                // Enable fetching schemas via ajax
+                ajax: true,
 
-            // The schema for the editor
-            schema: {
-                $ref: "promises.schema.json",
-                format: "grid"
-            },
+                // The schema for the editor
+                schema: {
+                    $ref: "promises.schema.json",
+                    format: "grid"
+                },
 
-            // Seed the form with a starting value
-            startval: starting_value
-        });
+                // Seed the form with a starting value
+                startval: starting_value
+            });
 
-        // Hook up the submit button to log to the console
-        document.getElementById('submit').addEventListener('click', function () {
-            // Get the value from the edito
-            $.ajax({
-                type: "POST",
-                data: JSON.stringify(editor.getValue()),
-                url: SETTINGS_URL,
-                contentType: "application/json",
-                dataType: 'json'
+            // Hook up the submit button to log to the console
+            document.getElementById('submit').addEventListener('click', function () {
+                // Get the value from the edito
+                $.ajax({
+                    type: "POST",
+                    data: JSON.stringify(editor.getValue()),
+                    url: SETTINGS_URL,
+                    contentType: "application/json",
+                    dataType: 'json'
+                })
+                    .done(response => {
+                        console.log(response)
+                        alert('Cambios Realizados')
+                    });
+            });
+
+
+            // Hook up the validation indicator to update its
+            // status whenever the editor changes
+            editor.on('change', function () {
+                // Get an array of errors from the validator
+                var errors = editor.validate();
+
+            });
+        }
+
+        $.getJSON(SETTINGS_URL)
+            .done(response => {
+                initEditor(response.data)
             })
-                .done(response => {
-                    console.log(response)
-                    alert('Cambios Realizados')
-                });
-        });
 
-
-        // Hook up the validation indicator to update its
-        // status whenever the editor changes
-        editor.on('change', function () {
-            // Get an array of errors from the validator
-            var errors = editor.validate();
-
-        });
-    }
-
-    $.getJSON(SETTINGS_URL)
-        .done(response => {
-            initEditor(response.data)
-        })
-
-</script>
+    </script>
 </body>
+
 </html>
