@@ -1,0 +1,16 @@
+{
+  "name": "backend",
+  "version": "1.0.0",
+  "description": "tweet preprocessing for dynamodb",
+  "main": "preprocess.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Eduardo Aviles",
+  "license": "ISC",
+  "dependencies": {
+    "aws-sdk": "^2.458.0",
+    "buffer-from": "^1.1.1",
+    "clean-deep": "^3.0.2"
+  }
+}

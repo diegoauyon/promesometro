@@ -1,6 +1,10 @@
 var wsUri = "wss://kdx5uu8x2k.execute-api.us-east-2.amazonaws.com/dev";
 var output;
 
+import { dashboard } from '../scripts/dashboard'
+
+let websocket;
+
 function init() {
     output = document.getElementById("output");
     testWebSocket();
@@ -32,6 +36,7 @@ function onClose(evt) {
 
 function onMessage(evt) {
     writeToScreen('<span style="color: blue;">RESPONSE: ' + evt.data + '</span>');
+    dashboard.updateEducationScore(50);
 }
 
 function onError(evt) {
